@@ -76,3 +76,4 @@ DerivedDataCache/*
 
 #JetBrains Rider
 .idea/*
+Plugins/Developer/RiderLink/*
