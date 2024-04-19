@@ -58,11 +58,17 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);
 
-	// if(Data.EvaluatedData.Attribute == GetHealthAttribute())
-	// {
-	// 	UE_LOG(LogTemp, Warning, TEXT("Health from GetHealth(): %f"), GetHealth());
-	// 	UE_LOG(LogTemp, Warning, TEXT("Magnitude: %f"), Data.EvaluatedData.Magnitude);
-	// }
+	if(Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Red, FString::Printf(TEXT("Health: %f"), GetHealth()));
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+		//UE_LOG(LogTemp, Warning, TEXT("Health from GetHealth(): %f"), GetHealth());
+		//UE_LOG(LogTemp, Warning, TEXT("Magnitude: %f"), Data.EvaluatedData.Magnitude);
+	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	}
 }
 
 void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const
