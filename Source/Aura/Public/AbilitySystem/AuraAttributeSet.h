@@ -40,9 +40,14 @@ struct FEffectProperties
 	UPROPERTY()
 	ACharacter* TargetCharacter = nullptr;
 };
-/**
- * 
- */
+
+// C방식
+//typedef TBaseStaticDelegateInstance<FGameplayAttribute(), FDefaultDelegateUserPolicy>::FFuncPtr FAttributeFuncPtr;
+// C++ 제네릭 방식
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
+
 UCLASS()
 class AURA_API UAuraAttributeSet : public UAttributeSet
 {
@@ -58,6 +63,16 @@ private:
 	void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 	
 public:
+
+	// C방식
+//	TMap<FGameplayTag, FAttributeFuncPtr> TagsToAttributes;
+	// 기타 방식
+//	TMap<FGameplayTag, FGameplayAttribute(*)()> TagsToAttributes;
+	// C++방식
+	TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
+	// TStaticFuncPtr<float(int32, float, int32)> RandomFunctionPointer;
+	// static float RandomFunction(int32 I, float F, int32 I2) { return 0.f; }
+	
 
 	//---------------------------------------------------------------------------------------------
 	// Primary Attributes
