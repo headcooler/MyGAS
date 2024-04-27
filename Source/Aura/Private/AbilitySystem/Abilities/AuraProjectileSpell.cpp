@@ -1,7 +1,6 @@
 // Copyright Headcooler
 
 #include "AbilitySystem/Abilities/AuraProjectileSpell.h"
-#include "Kismet/KismetSystemLibrary.h"
 #include "Interaction/CombatInterface.h"
 #include "Actor/AuraProjectile.h"
 
